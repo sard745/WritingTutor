@@ -1,0 +1,17 @@
+# jupyter
+jupyterlab
+
+# openai
+openai
+tiktoken
+
+torchmetrics
+
+hydra-core
+
+# misc
+python-dotenv
+tenacity
+seaborn
+
+streamlit

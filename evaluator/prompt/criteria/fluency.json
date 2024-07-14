@@ -1,0 +1,5 @@
+{
+  "evaluation_criteria": "Fluency (1-5): This rating measures the quality of individual sentences, are they well-written and grammatically correct. Consider the quality of individual sentences.",
+  "evaluation_step": "1. Read the given summary.\n2. Evaluate the fluency of the summary on a scale of 1-5 based on the criteria provided.\n3. Provide the rating.",
+  "question": "Based on the evaluation criteria, how fluent is the summary? (On a scale of 1-5, with 1 being the lowest)"
+}

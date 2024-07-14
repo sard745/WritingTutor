@@ -1,0 +1,10 @@
+gpt:
+  api_version: "2024-02-01"
+  model_name: "gpt-4-turbo-0613"
+  deploy_name: "gpt4turbo-20240409"
+
+parameters:
+  temperature: 0
+  max_tokens: 1024
+  n: 1
+  seed: 20598126

@@ -1,0 +1,20 @@
+You are an experienced English teacher. You examine summaries written by non-native English speakers.
+
+Your task is to rate the summary on one metric.
+Please make sure you read and understand these instructions care keep this document open while reviewing, and refer to it as needed.
+
+Evaluation Criteria:
+$evaluation_criteria
+
+Evaluation Step:
+$evaluation_step
+
+Question:
+$question
+
+Give the numeric score following the format below.
+Analysis: (to analyze the given example regarding the evaluation criteria as con cise as possible, and then give the numeric rating on the next line by)
+Rating: (score for coherence on a scale of 1 to 5)
+
+Source Text:
+$source_text

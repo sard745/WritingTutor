@@ -1,0 +1,5 @@
+{
+  "evaluation_criteria": "Relevance (1-5) - selection of important content from the source text. The summary should include only important informa tion from the source text. Annotators were instructed to penalize summaries which contained redundancies and excess information.",
+  "evaluation_step": "1. Read the summary and the source text carefully.\n2. Compare the summary to the source text and identify the main of the source text.\n3. Assess how well the summary covers the main points of the source text, and how much irrelevant or redundant information it contains.\n4. Assign a relevance score from 1 to 5.",
+  "question": "On a scale of 1-5, with 1 being the lowest, is the summary relevant to the source text and does the summary only contain the important information of the source text?"
+}
