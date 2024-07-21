@@ -16,3 +16,4 @@ seaborn
 
 streamlit
 streamlit-option-menu
+streamlit-authenticator

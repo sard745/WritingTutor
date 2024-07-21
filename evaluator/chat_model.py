@@ -1,7 +1,7 @@
 from openai import AzureOpenAI
 from typing import TypeVar
 from typing import List, Callable, Union
-from utils import get_num_tokens
+from evaluator.utils import get_num_tokens
 from tenacity import retry
 from tenacity import stop_after_delay, RetryError, wait_fixed, stop_after_attempt
 

@@ -23,20 +23,20 @@ def changed_all_button_by_part_button(all_button, part_button_list):
         # 選択ボタンが一部True(False)または全てFalseの場合、全てをFalseにする
         st.session_state[all_button] = False
 
-def create_checkbox_group(all_button, part_button_list, label, page_position):
+def create_checkbox_group(all_button, part_button_list, label, page_position, on_change):
     init_buttons(all_button, part_button_list)
 
     page_position.write(label)
     page_position.checkbox(
         all_button, 
-        # value=st.session_state[all_button], 
+        value=st.session_state[all_button], 
         key=all_button, 
-        on_change=lambda: changed_part_button_by_all_button(all_button, part_button_list)
+        on_change=lambda: [on_change, changed_part_button_by_all_button(all_button, part_button_list)]
     )
 
     for part_button in part_button_list:
         page_position.checkbox(part_button, 
-            # value=st.session_state[part_button], 
+            value=st.session_state[part_button], 
             key=part_button, 
-            on_change=lambda: changed_all_button_by_part_button(all_button, part_button_list)
+            on_change=lambda: [on_change, changed_all_button_by_part_button(all_button, part_button_list)]
         )

@@ -1,0 +1,6 @@
+Student Summary:
+$summary
+
+Give the numeric score following the format below.
+Analyze: (to analyze the given example regarding the evaluation criteria as con cise as possible, and then give the numeric rating on the next line by)
+Score: (score for coherence on a scale of 1 to 5)

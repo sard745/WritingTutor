@@ -1,7 +1,7 @@
 from openai.types.chat.chat_completion import ChatCompletion
 import re
-from utils import make_prompt
-from chat_model import Chat_Model
+from evaluator.utils import make_prompt
+from evaluator.chat_model import Chat_Model
 import hydra
 from omegaconf import DictConfig
 from tenacity import retry
@@ -14,8 +14,9 @@ load_dotenv()
 
 def parse_response(response: ChatCompletion) -> dict:
   content = response.choices[0].message.content
-  analysis_pattern = r"Analysis:\s*(.+)"
-  rating_pattern = r"Rating:\s*(.+)"
+  print(f"response:\n {content}")
+  analysis_pattern = r"Analyze:\s*(.+)"
+  rating_pattern = r"Score:\s*(.+)"
   # TODO: analysis, ratingが見つからなかった場合のエラー処理
   analysis = re.findall(analysis_pattern, content)
   rating = re.findall(rating_pattern, content)
@@ -26,12 +27,14 @@ def parse_response(response: ChatCompletion) -> dict:
 
 def evaluate(
     chat_model: Chat_Model,
-    prompt: str, criteria: str,
-    source_text: str, student_summary: str, 
+    system_prompt: str, user_prompt: str,
+    criteria: str, source_text: str, student_summary: str, 
     gpt_parameters: dict, max_input_tokens: int
   ) -> Union[dict,str]:
 
-  prompts = make_prompt(prompt, criteria, source_text, student_summary)
+  prompts = make_prompt(system_prompt, user_prompt, criteria, source_text, student_summary)
+
+  print(f"prompt:\n {prompts}")
 
   evaluations = chat_model.get_response(
     system_prompt=prompts["system_prompt"],
@@ -45,7 +48,7 @@ def evaluate(
 
   return evaluations
 
-def run(cfg: dict, source_text: str, prompts: str, criteria: dict, student_summary: str) -> Union[dict,str]:
+def run(cfg: dict, source_text: str, system_prompt: str, user_prompt: str, criteria: dict, student_summary: str) -> Union[dict,str]:
   gpt = cfg["gpt"]
   parameters = cfg["parameters"]
   
@@ -59,7 +62,8 @@ def run(cfg: dict, source_text: str, prompts: str, criteria: dict, student_summa
 
   response = evaluate(
     chat_model = chat_model,
-    prompt = prompts,
+    system_prompt = system_prompt,
+    user_prompt=user_prompt,
     criteria = criteria,
     source_text = source_text,
     student_summary = student_summary,

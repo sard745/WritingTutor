@@ -2,8 +2,9 @@ import tiktoken
 import json
 
 def make_prompt(
-    prompt: str, criteria: str,
-    source_text: str, student_summary: str
+    prompt: str, user_prompt: str,
+    criteria: str, source_text: str,
+    student_summary: str
     ) -> dict:
     
   system_prompt = prompt.replace(
@@ -19,14 +20,13 @@ def make_prompt(
     "$source_text", source_text
     )
   
-  tag_start = "<student-summary>"
-  tag_end = "</student-summary>"
-  user_prompt = student_summary.strip()
-  user_prompt = tag_start + user_prompt + tag_end
+  user_prompt = user_prompt.replace(
+     "summart", student_summary.strip()
+  )
 
   return dict(
     system_prompt = system_prompt,
-    user_prompt = student_summary
+    user_prompt = user_prompt
   ) 
 
 def get_num_tokens(
