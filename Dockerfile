@@ -6,6 +6,10 @@ RUN apt install -y wget build-essential libpcre2-dev libffi-dev python3-dev libb
 RUN apt install -y --no-install-recommends software-properties-common dirmngr
 COPY ./requirements.txt /work/requirements.txt
 RUN python3 -m pip install -r /work/requirements.txt
+
+ENV AZURE_API_KEY=Set your Azure API Key
+ENV AZURE_API_ENDPOINT=Set your Azure API Endpoint
+
 WORKDIR /home/work
 
 EXPOSE 8501

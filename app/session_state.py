@@ -1,13 +1,14 @@
 import streamlit as st
 
 def layer_session(layer=0):
+    # print(f"change layer, from {st.session_state.layer} to {layer}" 
     st.session_state.layer=layer
 
 def summary_session(summary=None):
    st.session_state.summary=summary
 
-def reg_session(reg=False):
-    st.session_state.reg=reg
+def add_session(add=False):
+    st.session_state.add_cont=add
 
 def not_change_session(not_change=False):
     # print("---------------")
@@ -33,10 +34,7 @@ def title_session(title=None):
   
 def reset_session():
     if ("not_change" in st.session_state.keys()) and st.session_state.not_change:
-        # print("セッション変更なし")
-        # print(f"セッション変更前 {st.session_state.not_change}")
         not_change_session()
-        # print(f"セッション変更後 {st.session_state.not_change}")
         return
     st.session_state.now_layer=None
     st.session_state.now_menu=None
@@ -45,5 +43,4 @@ def reset_session():
     source_session()
     title_session()
     summary_session()
-    reg_session()
-    # print(f"セッション変更2 {st.session_state.not_change}")
+    add_session()

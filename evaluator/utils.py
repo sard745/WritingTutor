@@ -1,5 +1,4 @@
 import tiktoken
-import json
 
 def make_prompt(
     prompt: str, user_prompt: str,
@@ -32,8 +31,11 @@ def make_prompt(
 def get_num_tokens(
       model_name: str, messages: str
       ) -> int:
-    # TODO: tiktokenに定義されていないモデルの場合の処理を追加する
-    encoding = tiktoken.encoding_for_model(model_name)
+    try:
+      encoding = tiktoken.encoding_for_model(model_name)
+    except KeyError:
+      print("Warning: KeyError")
+      encoding = tiktoken.get_encoding("cl100k_base")
 
     if model_name in {
         "gpt-3.5-turbo-0613",
@@ -61,8 +63,6 @@ def get_num_tokens(
             num_tokens += len(encoding.encode(value))
             if key == "name":
                 num_tokens += tokens_per_name
-    num_tokens += 3  # every reply is primed with <|start|>assistant<|message|>
+    num_tokens += 3
 
     return num_tokens
-
-# TODO: api料金を簡単に計算できる関数を追加する

@@ -14,10 +14,17 @@ load_dotenv()
 
 def parse_response(response: ChatCompletion) -> dict:
   content = response.choices[0].message.content
-  print(f"response:\n {content}")
-  analysis_pattern = r"Analyze:\s*(.+)"
-  rating_pattern = r"Score:\s*(.+)"
-  # TODO: analysis, ratingが見つからなかった場合のエラー処理
+
+  """
+  以下のすべてのパターンを抽出できるよう改良
+  ・Analysis: test Score: 5
+  ・Score: 5 Analysis: test
+  ・Analysis: test \nScore: 5
+  ・Score: 5 \nAnalysis: test
+  """
+  analysis_pattern = r"Analysis:\s*(.+?)(?=\s*Score:|\Z|\n)" 
+  rating_pattern = r"Score:\s*(\d)"
+  
   analysis = re.findall(analysis_pattern, content)
   rating = re.findall(rating_pattern, content)
   return dict(
@@ -34,18 +41,20 @@ def evaluate(
 
   prompts = make_prompt(system_prompt, user_prompt, criteria, source_text, student_summary)
 
-  print(f"prompt:\n {prompts}")
-
-  evaluations = chat_model.get_response(
-    system_prompt=prompts["system_prompt"],
-    user_prompt=prompts["user_prompt"],
-    gpt_parameters=gpt_parameters,
-    parse_response=parse_response,
-    max_input_tokens=max_input_tokens
-  )
-
-  # TODO: RetryErrorのエラー処理
-
+  try:
+    evaluations = chat_model.get_response(
+      system_prompt=prompts["system_prompt"],
+      user_prompt=prompts["user_prompt"],
+      gpt_parameters=gpt_parameters,
+      parse_response=parse_response,
+      max_input_tokens=max_input_tokens
+    )
+  # 何かしらのエラーによりスコアを算出できなかった場合
+  except RetryError:
+    evaluations = dict(
+      analysis = "We cannot caluculate score.",
+      rating = 0
+    )
   return evaluations
 
 def run(cfg: dict, source_text: str, system_prompt: str, user_prompt: str, criteria: dict, student_summary: str) -> Union[dict,str]:
