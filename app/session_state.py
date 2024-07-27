@@ -1,7 +1,6 @@
 import streamlit as st
 
 def layer_session(layer=0):
-    # print(f"change layer, from {st.session_state.layer} to {layer}" 
     st.session_state.layer=layer
 
 def summary_session(summary=None):
@@ -11,16 +10,12 @@ def add_session(add=False):
     st.session_state.add_cont=add
 
 def not_change_session(not_change=False):
-    # print("---------------")
-    # print("not change")
     st.session_state.not_change=not_change
 
 def observe_session():
     if st.session_state.now_menu!=st.session_state.menu:
-    #   print("observe_menu")
       reset_session()
     elif st.session_state.now_layer==st.session_state.layer:
-    #   print("observe_layer")
       reset_session()
 
     st.session_state.now_menu=st.session_state.menu

@@ -57,8 +57,6 @@ class SourceTextDB(DataBase):
     
   def get_level(self, level):
     df = self.get_table("source_text", f"{self.level}={level}")
-    # print("database")
-    # print(df)
     return df
 
   def add_text(self, title, level, source_text):

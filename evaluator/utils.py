@@ -20,7 +20,7 @@ def make_prompt(
     )
   
   user_prompt = user_prompt.replace(
-     "summart", student_summary.strip()
+     "$summary", student_summary.strip()
   )
 
   return dict(
@@ -44,7 +44,8 @@ def get_num_tokens(
         "gpt-4-32k-0314",
         "gpt-4-0613",
         "gpt-4-32k-0613",
-        "gpt-4o-0513"
+        "gpt-4o-0513",
+        "gpt-4-turbo-0613"
     }:
       tokens_per_message = 3
       tokens_per_name = 1

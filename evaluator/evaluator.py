@@ -14,15 +14,14 @@ load_dotenv()
 
 def parse_response(response: ChatCompletion) -> dict:
   content = response.choices[0].message.content
-
   """
   以下のすべてのパターンを抽出できるよう改良
-  ・Analysis: test Score: 5
+  ・Analyze: test Score: 5
   ・Score: 5 Analysis: test
-  ・Analysis: test \nScore: 5
+  ・Analyze: test \nScore: 5
   ・Score: 5 \nAnalysis: test
   """
-  analysis_pattern = r"Analysis:\s*(.+?)(?=\s*Score:|\Z|\n)" 
+  analysis_pattern = r"Analyze:\s*(.+?)(?=\s*Score:|\Z|\n)" 
   rating_pattern = r"Score:\s*(\d)"
   
   analysis = re.findall(analysis_pattern, content)
@@ -55,6 +54,7 @@ def evaluate(
       analysis = "We cannot caluculate score.",
       rating = 0
     )
+    
   return evaluations
 
 def run(cfg: dict, source_text: str, system_prompt: str, user_prompt: str, criteria: dict, student_summary: str) -> Union[dict,str]:

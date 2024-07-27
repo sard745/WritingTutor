@@ -30,7 +30,7 @@ class Chat_Model():
     messages.append({"role": "user", "content": user_prompt})
     return messages
 
-  # @retry(stop=(stop_after_attempt(5) | stop_after_delay(600)), wait=wait_fixed(2))
+  @retry(stop=(stop_after_attempt(5) | stop_after_delay(60)), wait=wait_fixed(2))
   def get_response(
       self: Self,
       system_prompt: str, user_prompt: str, 
