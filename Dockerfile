@@ -13,6 +13,3 @@ ENV AZURE_API_ENDPOINT=Set your Azure API Endpoint
 WORKDIR /home/work
 
 EXPOSE 8501
-
-# docker build -t ase/azure ./
-# docker run -t -d -v /home/suzuki.h.ci/AutoSummEval:/home/work -p 8501:8501 --gpus '"device=0"' --name ase ase/azure /bin/bash
